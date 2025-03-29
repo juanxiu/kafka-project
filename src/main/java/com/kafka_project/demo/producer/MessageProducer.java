@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MessageProducer {
 
-    // .yml에 정의한 kafka 설정이 주입된 kafkaTemplete
+
     private final KafkaTemplate<String, String> kafkaTemplate;
     private static String TOPIC_NAME = "test-topic";
 
