@@ -18,12 +18,8 @@ public class DemoApplication {
 
 		kafkaProps.put("bootstrap.servers", "broker1:9092, broker2:9092");
 
-		/*
-		카프카에 쓸 레코드의 키와 밸류값을 직렬화하기 위해 시리얼라이저 클래스를 사용한다.
-		카프카 브로커는 메시지의 키값, 밸류값으로 바이트 배열을 받지만, 프로듀서 인터페이스는 임의의 자바 객체를 키 혹은 밸류로 전송할 수 있도록 매개변수화된 타입을 사용할 수 있게 한다.
-		프로듀서 입장에서는 이 객체를 어떻게 바이트로 바꿔야 하는지 알아야 한다.
-		메시지의 키값과 밸류값으로 문자열 타입을 사용하므로, StringSerializer 사용했다.
-		 */
+
+		// 메시지의 키값과 밸류값으로 문자열 타입을 사용하므로, StringSerializer 사용했다.
 		kafkaProps.put("key.serializer",
 				StringSerializer.class.getName());
 		kafkaProps.put("value.serializer",
