@@ -1,0 +1,11 @@
+{
+	"name": "OrderCancelKafkaEvent",
+	"namespace": "customer.avsc",
+	"type": "record",
+	"fields": [
+		{
+			"name": "orderId",
+			"type": "long"
+		}
+	]
+}
