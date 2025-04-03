@@ -1,6 +1,7 @@
 package com.kafka_project.demo.producer;
 
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class ProducerConfig {
     }
 
     @Bean
-    public KafkaProducer<String, String> kafkaProducer(Properties producerProperties){
+    public KafkaProducer<String, GenericRecord> kafkaProducer(Properties producerProperties){
         return new KafkaProducer<>(producerProperties);
     }
 }
