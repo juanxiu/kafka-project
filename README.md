@@ -66,3 +66,21 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 `value.serializer`
 - 카프카 브로커는 메시지의 키값, 밸류값으로 바이트 배열을 받지만, 프로듀서 인터페이스는 임의의 자바 객체를 키 혹은 밸류로 전송할 수 있도록 매개변수화된 타입을 사용할 수 있게 한다.
 - 프로듀서 입장에서는 이 객체를 어떻게 바이트로 바꿔야 하는지 알아야 한다.
+
+```dockerfile
+// 메시지의 키값과 밸류값으로 문자열 타입을 사용하므로, StringSerializer 사용했다.
+		kafkaProps.put("key.serializer",
+				StringSerializer.class.getName());
+		kafkaProps.put("value.serializer",
+				StringSerializer.class.getName());
+
+```
+### 콜백
+- 메시지는 비동기적으로 전송되지만, 메시지 전송에 완전히 실패했을 때를 위해 에러 처리가 필요하다.
+- 에러 처리를 위해 프로듀서는 레코드를 전송할 때 콜백을 지정할 수 있도록 한다.
+
+## 에이브로 시리얼라이저
+
+## 카프카 구조 이해하기 
+- 카프카는 클러스터 -> 브로커 -> 토픽 -> 파티션 -> 세그먼트로 구성
+- <img width="761" alt="Image" src="https://github.com/user-attachments/assets/507dcae2-1e80-411e-b7c3-b94f16321981" />
