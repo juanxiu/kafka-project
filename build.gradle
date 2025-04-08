@@ -37,12 +37,19 @@ dependencies {
 
 	// avro
 	implementation "org.apache.avro:avro:1.12.0"
+	// avro serializer
 	implementation 'io.confluent:kafka-avro-serializer:6.1.0'
 
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+generateAvroJava{
+	source("src/main/resources/avro/")
+	include("**/*.avsc")
+	outputDir = file("build/generated/avro-java")
 }
 
 // avro
