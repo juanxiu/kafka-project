@@ -1,16 +1,17 @@
 # spring.application.name=demo
 
+#kafkaTemplete 으로 사용 가능
 spring:
   kafka:
     producer:
-      # Kafka ????? ?? ??
       bootstrap-servers: localhost:9092
       acks: all
-      # Kafka ???? key? ???? ? ??? ???? ??
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
     listener:
       ack-mode: MANUAL_IMMEDIATE
       type: SINGLE
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: dev-group # ??
+      group-id: dev-group
+    properties:
+      schema.registry.url: http://localhost:8081
