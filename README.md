@@ -83,4 +83,10 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 
 ## 카프카 구조 이해하기 
 - 카프카는 클러스터 -> 브로커 -> 토픽 -> 파티션 -> 세그먼트로 구성
-- <img width="761" alt="Image" src="https://github.com/user-attachments/assets/507dcae2-1e80-411e-b7c3-b94f16321981" />
+
+<img width="761" alt="Image" src="https://github.com/user-attachments/assets/507dcae2-1e80-411e-b7c3-b94f16321981" />
+### 리더 선출 
+
+
+
+### Raft 알고리즘 
