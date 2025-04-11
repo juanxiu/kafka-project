@@ -1,7 +1,6 @@
 package com.kafka_project.demo.producer;
 
-import com.kafka_project.demo.DemoApplication;
-import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
@@ -10,11 +9,8 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.kafka.common.protocol.types.Field;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 @Service
 @RequiredArgsConstructor
