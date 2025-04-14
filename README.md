@@ -93,3 +93,8 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 
 ### 트러블 슈팅
 - avro 전송 오류 
+- avro 란
+- 장점
+  - 스키마를 통해 데이터 구조 및 타입을 알 수 있다.
+    데이터 압축
+    스키마 변경에 유연하게 대응 가능
