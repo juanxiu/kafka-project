@@ -90,3 +90,6 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 
 
 ### Raft 알고리즘 
+
+### 트러블 슈팅
+- avro 전송 오류 
