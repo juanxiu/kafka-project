@@ -88,7 +88,6 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 ### 리더 선출 
 
 
-
 ### Raft 알고리즘 
 
 ### 트러블 슈팅
@@ -98,3 +97,20 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
   - 스키마를 통해 데이터 구조 및 타입을 알 수 있다.
     데이터 압축
     스키마 변경에 유연하게 대응 가능
+
+## 이슈 
+### 질문1
+electLeader() 메서드는 두 가지 서로 다른 형태의 리더 선출을 할 수 있게 해줌.
+선호 리더 선출과 언클린 리더 선출 중 언클린 리더 선출은 무엇일까?
+
+### 답변1 
+우선 리더 선출과 관련해서 N개의 파티션 중에 리더 파티션은 단 하나만 존재하며 나머지 파티션은 팔로워(Follower) 파티션이 되어 사용자가 replication-factor로 지정한 수 만큼의 Replica를 구성합니다. 이러한 Replica를 구성하는 여러 방식 중에 카프카는 효율적이고 간단한 시스템 구축을 위해 '클라이언트와 리더 파티션 간의 1:1 커뮤니케이션' 을 합니다.
+
+Partition Leader Election은 '리더 파티션을 담당했던 브로커에 장애가 생겼을 때 해당 리더를 어떻게 대체할 것인가?'에 대한 내용입니다.
+unclean.leader.election.enable 옵션은 ISR(in-sync replica)가 아닌 OSR(out-of sync replica)를 가지고 있는 broker를 leader로 선출 할 수 있도록 설정합니다. (리더 파티션은 팔로워 파티션의 pull 요청의 마지막 Offset 값을 활용하여 각 팔로워 파티션의 LAG을 체크합니다.)
+
+최초에 Preferred Reader(선호 리더)라 Leader 가 되고, 나머지 파티션은 Follwer 가 됩니다. 여기서 Preferred Leader란 토픽이 처음 생성될 때 리더였던 Replica를 말합니다.
+
+그런데, 만약 리더 브로커가 죽고 다른 모든 Replica도 ISR 상태가 아니라면 어떻게 될까요?
+
+해당 파티션의 리더가 없게 되고 시간이 지날수록 데이터의 유실이 발생합니다. 따라서, Offset 차이만큼의 데이터 유실을 감수하고서라도 Out of Sync 상태의 Replica를 강제로 리더로 선출하게 만들어 버릴 수 있는데, 이를 Unclean Leader Election이라고 합니다.
