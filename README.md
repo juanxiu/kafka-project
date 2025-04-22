@@ -89,6 +89,7 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 
 
 ### Raft 알고리즘 
+- 라이언트를 통해 받은 변경사항을 로그 복제를 통해 클러스터의 모든 노드가 동일하게 가질 수 있도록 하는 분산 합의 방법
 
 ### 트러블 슈팅
 - avro 전송 오류 
