@@ -119,6 +119,15 @@ Setting offset for partition test-topic-0 to the committed offset FetchPosition{
 
 - 리더 파티션: 원본 파티션을 의미하며, 데이터의 컨슘/프로듀스 는 리더 파티션을 통해 이루어 집니다.
 - 팔로워 파티션: 원본 파티션의 복제본을 의미하며, 리더파티션의 데이터를 복제하여 저장합니다.
+
+### 컨슈머 poll 메서드 블로킹 동작 
+- 컨슈머에서 poll을 이용해 데이터를 받아온다고 해보자
+- KafkaConsumer 인스턴스를 생성하면 실제로 AsyncKafkaConsumer 인스턴스가 생성되면서 ConsumerNetworkThread 스레드가 생성,시작된다.
+- 이후 poll 을 호출하면 awaitNotEmpty 메서드에 의해 시간인자만큼 해당스레드에 락이 걸린다.
+- 한편 ConsumerNetworkThread 는 networkClient 의 poll을 호출하여 NIO 동작을 하며 요청데이터를 수신한다.
+- 즉, 사용자는 poll이 Block & Sync 하는 것으로 보이지만, 내부적으로 생성된 스레드에 의해 비동기 동작함을 알 수 있다. (Blocking 은 맞다)
+
+
 ### 트러블 슈팅
 - avro 전송 오류 
 - avro 란
